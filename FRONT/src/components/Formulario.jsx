@@ -270,8 +270,8 @@ const Formulario = () => {
     Raza:
   </label>
 {especie == 'Canino' && (
-<select value={raza} className='block w-1/3 p-2 mt-2 bg-gray-50 rounded-md' onChange={(e) => setRaza(e.target.value)}>
-<option selected="selected" value="">**  Seleccione por favor **</option>
+<select value={raza} className='block w-3/4 md:w-1/3 p-2 mt-2 bg-gray-50 rounded-md' onChange={(e) => setRaza(e.target.value)}>
+<option value="">**  Seleccione por favor **</option>
 <option value="Mestizo">*MESTIZO*</option>
 			<option value="Afgano">AFGANO</option>
 			<option value="Airedale">AIREDALE</option>
@@ -423,7 +423,7 @@ const Formulario = () => {
 
 {especie == 'Felino' && (
 <select value={raza} className='block w-1/3 p-2 mt-2 bg-gray-50 rounded-md' onChange={(e) => setRaza(e.target.value)}>
-<option selected="selected" value="">**  Seleccione por favor **</option>
+<option value="">**  Seleccione por favor **</option>
       <option value="Mestizo">*MESTIZO*</option>
 			<option value="Abyssinian">ABYSSINIAN</option>
 			<option value="Angora turco">ANGORA TURCO</option>
@@ -486,7 +486,7 @@ Edad:
         <input
             id="edad"
             type="number"
-            className="block w-1/12 p-2 mt-2 bg-gray-50 rounded-md"
+            className="block w-1/4 md:w-1/12 p-2 mt-2 bg-gray-50 rounded-md"
             value={edad}
             onChange={(e) => setEdad(e.target.value)}/>
         <select id='meses'
@@ -508,8 +508,7 @@ Sexo:
           value={sexo}
           className='p-2 block mt-2 bg-gray-50 rounded-md'
           onChange={e => setSexo(e.target.value)}>
-{/* <option selected="selected" value="">**Seleccione por favor**</option> */}
-<option selected="selected" value="Macho">Macho</option>
+<option value="Macho">Macho</option>
 <option value="Hembra">Hembra</option>
 </select>
 </div>
@@ -570,7 +569,7 @@ Sexo:
     mask="999-999-999-999-999"
     type='text'
     maskChar={null}
-    className='block w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='999-999-999-999-999'
     value={numero}
     minLength="19"
@@ -588,7 +587,7 @@ Sexo:
   <input
     id='peso'
     type='number'
-    className='block w-full p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/6 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Peso (Kg)'
     name='peso'
     value={peso}
@@ -605,7 +604,7 @@ Sexo:
   <input
     id='color'
     type='text'
-    className='block w-full p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/3 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Color'
     name='color'
     value={color}
@@ -744,7 +743,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
           <label className="text-gray-800">
             Identificación:
           </label>
-<div className="flex justify-start">
+<div className="md:flex justify-start">
     <div className="flex items-center w-20 pl-4 mt-2 placeholder-gray-400 rounded-md">
     <input id="id" 
     type="checkbox" 
@@ -832,14 +831,14 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
           {submitClicked && direcciond === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
 </div>
 
-<div className='mb-8 flex flex-row justify-between'>
+<div className='mb-8 md:flex flex-row justify-between'>
   <label className='text-gray-800 '>
     Ciudad de Destino:
   </label>
   <input
     id='ciudadDestino'
     type='text'
-    className='block w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Ciudad Destino'
     name='CiudadDest'
     value={ciudadd}
@@ -853,7 +852,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
   <input
     id='estadoDestinos'
     type='text'
-    className='block w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Estado Destino'
     name='estadoDest'
     value={estadod}
@@ -886,7 +885,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
   <input
     id='codigoP'
     type='text'
-    className='block w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Código Postal'
     name='código postal'
     value={postal}
@@ -942,7 +941,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
   <input
     id='ciudadOrigen'
     type='text'
-    className='block w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Ciudad Origen'
     name='CiudadOrig'
     value={ciudado}
@@ -979,9 +978,9 @@ Aeropuerto de Salida:
 </label>
 <select id='aeropuerto'
           value={aeropuerto}
-          className='block p-2 mt-2 bg-gray-50 rounded-md'
+          className='block p-2 mt-2 bg-gray-50 rounded-md w-full'
           onChange={e => setAeropuerto(e.target.value)}>
-				<option selected="selected" value="--PLEASE_SELECT--">**  Seleccione por favor **</option>
+				<option value="--PLEASE_SELECT--">**  Seleccione por favor **</option>
 				<option value="Arauca - Paso Fronterizo">Arauca - Paso Fronterizo</option>
 				<option value="Armenia - Aeropuerto El Eden">Armenia - Aeropuerto El Eden</option>
 				<option value="Barranquilla - Aeropuerto Ernesto Cortissoz">Barranquilla - Aeropuerto Ernesto Cortissoz</option>
@@ -1025,7 +1024,7 @@ Aeropuerto de Salida:
   <input
     id='ruta'
     type='text'
-    className='block w-1/2 p-2 mt-2 bg-gray-50 rounded-md'
+    className='block md:w-1/2 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='Medellin - Bogota - Miami'
     value={ruta}
     onChange={(e) => setRuta(e.target.value)}
