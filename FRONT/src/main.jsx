@@ -25,8 +25,6 @@ const router = createBrowserRouter([
       path: '/nacional',
       element: <Formulario3/>
   }
-    
-    
     ]
   },
  
