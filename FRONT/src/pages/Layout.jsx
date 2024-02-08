@@ -3,7 +3,7 @@ const Layout = () => {
 	const location = useLocation()
 	return (
 		<div className='md:flex md:min-h-screen '>
-			<aside className='md:w-1/4 px-5 py-20 bg-[url(../../public/background.svg)] text-center'>
+			<aside className='md:w-1/4 px-5 py-20 bg-[url(/background.svg)] text-center'>
 				<h2 className=' font-bold text-white text-4xl'>
 					FORMULARIOS
 				</h2>
