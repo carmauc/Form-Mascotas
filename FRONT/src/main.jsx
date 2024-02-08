@@ -3,10 +3,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Formulario from './components/Formulario'
-import Layout from './components/Layout'
-import Formulario2 from './components/Formulario2'
-import Formulario3 from './components/Formulario3'
+import Formulario from './pages/Formulario'
+import Layout from './pages/Layout'
+import Formulario2 from './pages/Formulario2'
+import Formulario3 from './pages/Formulario3'
 
 
 const router = createBrowserRouter([

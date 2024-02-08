@@ -1,4 +1,4 @@
-  const BASE_URL = 'https://form-mascotas-production.up.railway.app'; // Reemplaza con la URL de tu servidor
+  const BASE_URL = 'https://back-mascotas-production-b241.up.railway.app'; // Reemplaza con la URL de tu servidor
   // const BASE_URL = 'http://localhost:3001'; // Reemplaza con la URL de tu servidor
 
   const api = {
@@ -13,9 +13,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        // body: formData,
         body: JSON.stringify(formDataJson), // Convertir a JSON
-        // body: datosFormulario,
 
       });
 
@@ -26,7 +24,6 @@
 
       const responseData = await response.json();
       return responseData;
-      // return response.json();
     },
   };
 
