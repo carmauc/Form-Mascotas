@@ -1,10 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom'
 const Layout = () => {
 	const location = useLocation()
-	// console.log(location);
 	return (
 		<div className='md:flex md:min-h-screen '>
-			<aside className='md:w-1/4 px-5 py-20 bg-hero-pattern text-center'>
+			<aside className='md:w-1/4 px-5 py-20 bg-[url(../../public/background.svg)] text-center'>
 				<h2 className=' font-bold text-white text-4xl'>
 					FORMULARIOS
 				</h2>
