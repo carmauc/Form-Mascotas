@@ -99,7 +99,7 @@ app.post('/enviar-correo', upload.fields([
          margin: auto;
          text-align: center;
          font-size: 14px;
-         margin-bottom: 900px;
+         margin-bottom: 200px;
      
        }
        .styled-table3 th {
@@ -219,6 +219,9 @@ app.post('/enviar-correo', upload.fields([
             <td>${ident} ${numeroid}</td>
           </tr>
           <tr>
+           <td>-</td>
+         </tr>
+          <tr>
             <td>${direcciond}</td>
           </tr>
           <tr>
@@ -308,10 +311,9 @@ app.post('/enviar-correo', upload.fields([
       <table class="styled-table3">
        <thead>
          <h1 style="color: #0E7490">INFORMACIÓN SOLICITUD CDC</h1>
-         <h2>Fecha de Viaje: ${fecha} </h2>
        </thead>
       <tr>
-       <th colspan="2" class="titulo">INFORMACIÓN SOLICITANTE DEL PERMISO</th>
+       <th colspan="2" style="background-color: #0E7490; color: aliceblue;"">INFORMACIÓN SOLICITANTE DEL PERMISO</th>
      </tr>
       <tr>
         <th>Nombre Completo del Solicitante</th>
@@ -403,7 +405,7 @@ app.post('/enviar-correo', upload.fields([
        <th>Microchip</th>
        <td>${numero}</td>
      </tr>
-     <tr><th colspan="2" style="background-color: #0E7490; color: aliceblue;">INFORMACIÓN ENTRADA</th></tr>
+     <tr><th colspan="2" style="color: aliceblue; background-color: #0E7490;">INFORMACIÓN ENTRADA</th></tr>
      <tr>
        <th>Fecha de Entrada</th>
        <td>${fecha2}</td>
@@ -541,46 +543,32 @@ app.post('/enviar-correo', upload.fields([
 
         País Destino: ${paisd}`,
         attachments: [
-            {
-              // filename: 'formulario.pdf',
-              // // content: Buffer.from(htmlContent, 'utf-8'),
-              // // content: buffer,
-              //               content: outputPath,
-              filename: 'formulario.pdf', path: 'output.pdf' 
-
-            },
+      
+              { filename: 'formulario.pdf', path: 'output.pdf' }        
           ],
         };
     
-            if (archivoAdjunto) {
-              const stream = require('stream');
-              const attachmentStream = new stream.PassThrough();
-              attachmentStream.end(archivoAdjunto.buffer);
-              mailOptions.attachments.push({
-                filename: archivoAdjunto.originalname,
-                content: attachmentStream,
-              });
-            }
+        if (archivoAdjunto) {
+          mailOptions.attachments.push({
+              filename: archivoAdjunto.originalname,
+              content: archivoAdjunto.buffer,
+          });
+      }
 
-            if (archivoAdjunto2) {
-              const stream = require('stream');
-              const attachmentStream = new stream.PassThrough();
-              attachmentStream.end(archivoAdjunto2.buffer);
-              mailOptions.attachments.push({
-                filename: archivoAdjunto2.originalname,
-                content: attachmentStream,
-              });
-            }
+      if (archivoAdjunto2) {
+          mailOptions.attachments.push({
+              filename: archivoAdjunto2.originalname,
+              content: archivoAdjunto2.buffer,
+          });
+      }
 
-            if (pasaporte1) {
-              const stream = require('stream');
-              const attachmentStream = new stream.PassThrough();
-              attachmentStream.end(pasaporte1.buffer);
-              mailOptions.attachments.push({
-                filename: pasaporte1.originalname,
-                content: attachmentStream,
-              });
-            }
+      if (pasaporte1) {
+          mailOptions.attachments.push({
+              filename: pasaporte1.originalname,
+              content: pasaporte1.buffer,
+          });
+      }
+
 
 await transporter.sendMail(mailOptions);
 

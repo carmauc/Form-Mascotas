@@ -2,7 +2,7 @@
 FROM node:latest
 
 # Establece el directorio de trabajo dentro del contenedor
-
+WORKDIR /BACK/app
 
 # Copia el package.json y el package-lock.json para instalar las dependencias
 COPY package*.json ./
@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copia el resto de los archivos de la aplicación
-COPY . .
+COPY ./BACK .
 
 ARG RAILWAY_STATIC_URL
 ARG PUBLIC_URL
