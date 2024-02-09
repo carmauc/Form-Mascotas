@@ -2,7 +2,7 @@
 FROM node:latest
 
 # Establece el directorio de trabajo dentro del contenedor
-WORKDIR /app/BACK
+WORKDIR /BACK
 
 # Copia el package.json y el package-lock.json para instalar las dependencias
 COPY package*.json ./
