@@ -71,35 +71,44 @@ const Formulario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitClicked(true);
-
-    if ([mascota, raza, especie, nacimiento, edad, meses, microchip, peso, color, esterilizado, nombre, ident, numeroid, correo, direcciond, direcciono, ciudadd, estadod, paisd, postal, ciudado, telefonod, telefonoo, fecha, aeropuerto, ruta].includes('')) {
-			Swal.fire({
-        icon: "error",
-        title: "Todos los campos son Obligatorios",
-      });
-      return;
-}else{
-    let timerInterval;
-    Swal.fire({
-      title: "Enviando..",
-      timer: 3000,
-      didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup().querySelector("b");
-        timerInterval = setInterval(() => {
-          timer.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      }
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        return;
-      }
-    });
+if ([mascota, raza, especie, nacimiento, edad, meses, microchip, peso, color, esterilizado, nombre, ident, numeroid, correo, direcciond, direcciono, ciudadd, estadod, paisd, postal, ciudado, telefonod, telefonoo, fecha, aeropuerto, ruta].includes('')) {
+	Swal.fire({
+    icon: "error",
+    title: "Todos los campos son Obligatorios",
+  });
+  return;
 }
+if (microchip === 1 && numero.length != 19) {
+  Swal.fire({
+    icon: "error",
+    title: "El microchip debe ser de 15 dígitos",
+  });
+  return;
+}
+
+
+
+let timerInterval;
+Swal.fire({
+  title: "Enviando..",
+  timer: 3000,
+  didOpen: () => {
+    Swal.showLoading();
+    const timer = Swal.getPopup().querySelector("b");
+    timerInterval = setInterval(() => {
+      timer.textContent = `${Swal.getTimerLeft()}`;
+    }, 100);
+  },
+  willClose: () => {
+    clearInterval(timerInterval);
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    return;
+  }
+});
+
 
     try {
       const formData = new FormData();
@@ -520,12 +529,13 @@ Sexo:
           </label>
 <div className="flex justify-start">
     <div className="flex items-center w-20 pl-4 mt-2 placeholder-gray-400">
-    <input id="1" 
+    <input         
+    id="microchip-yes" 
     type="radio" 
     value="1" 
     className="w-6 h-4 accent-green-600 cursor-pointer"
-    checked = {microchip==1 ? true: false}
-    onChange={(e) => setMicrochip(e.target.value)}
+    checked={microchip === 1}
+    onChange={(e) => setMicrochip(parseInt(e.target.value))}
     />
     <label className="py-4 ml-2 w-full text-sm font-medium text-gray-400">Si</label>
     </div>
@@ -572,8 +582,8 @@ Sexo:
     className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='999-999-999-999-999'
     value={numero}
-    minLength="19"
-    maxLength="19"
+    // minLength="15"
+    // maxLength="15"
     required
     onChange={(e) => setNumero(e.target.value)}/>
 </div>

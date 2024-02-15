@@ -90,7 +90,15 @@ const handlePasaporte = (e) => {
         title: "Todos los campos son Obligatorios",
       });
       return;
-}else{
+}
+if (microchip === 1 && numero.length != 19) {
+  Swal.fire({
+    icon: "error",
+    title: "El microchip debe ser de 15 dígitos",
+  });
+  return;
+}
+
   let timerInterval;
   Swal.fire({
     title: "Enviando..",
@@ -111,7 +119,7 @@ const handlePasaporte = (e) => {
       return;
     }
   });
-}
+
     try {
       const formData = new FormData();
       formData.append('mascota', mascota);
@@ -528,12 +536,13 @@ Sexo:
           </label>
 <div className="flex justify-start">
     <div className="flex items-center w-20 pl-4 mt-2 placeholder-gray-400">
-    <input id="1" 
+    <input 
+    id="microchip-yes" 
     type="radio" 
     value="1" 
     className="w-6 h-4 accent-red-600 cursor-pointer"
-    checked = {microchip==1 ? true: false}
-    onChange={(e) => setMicrochip(e.target.value)}
+    checked={microchip === 1}
+    onChange={(e) => setMicrochip(parseInt(e.target.value))}
     />
     <label className="py-4 ml-2 w-full text-sm font-medium text-gray-400">Si</label>
     </div>
