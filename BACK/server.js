@@ -204,7 +204,7 @@ app.post('/enviar-correo', upload.fields([
            <td>${numero ? numero : microchip}</td>
           </tr>
           <tr>
-            <td>${peso}</td>
+            <td>${peso} Kg</td>
           </tr>
           <tr>
             <td>${color}</td>
