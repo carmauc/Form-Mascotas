@@ -220,7 +220,7 @@ Swal.fire({
   return (
     <div className=' bg-white shadow rounded-md md:w-3/4 mx-auto px-5 py-10 mt-20 '>
       <h1 className='font-bold text-4xl text-teal-700 text-center'>Formulario para Certificados Internacionales</h1>
-      <p className='text-center my-8 text-orange-500'>Por favor, complete el formulario con información precisa, tómese su tiempo y asegúrese de revisar todos los campos antes de enviar.
+      <p className='text-center my-8 text-orange-500'>Por favor, complete el formulario con información precisa, tómese su tiempo y asegúrese de revisar todos los campos antes de enviar. De esto depende el viaje de su mascota.
 </p>
   <form onSubmit={handleSubmit}>
   <legend
@@ -833,7 +833,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
     id='direccionD'
     type='text'
     className='block w-full p-2 mt-2 bg-gray-50 rounded-md'
-    placeholder='Dirección País de Destino'
+    placeholder='Dirección Exacta en el País de Destino'
     name='direccionD'
     value={direcciond}
     onChange={(e) => setDirecciond(e.target.value)}
