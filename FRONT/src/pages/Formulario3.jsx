@@ -11,8 +11,8 @@ const Formulario3 = () => {
   const [raza, setRaza] = useState('');
   const [nacimiento, setNacimiento] = useState('');
   const [edad, setEdad] = useState('');
-  const [meses, setMeses] = useState('Meses');
-  const [sexo, setSexo] = useState('Macho');
+  const [meses, setMeses] = useState('');
+  const [sexo, setSexo] = useState('');
   const [peso, setPeso] = useState('');
   const [color, setColor] = useState('');
   const [nombre, setNombre] = useState('');
@@ -56,7 +56,7 @@ const Formulario3 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitClicked(true);
-    if ([mascota, raza, especie, nacimiento, edad, meses, peso, color, nombre, ident, numeroid, correo, direcciond, direcciono, ciudadd, ciudado, telefonod, fecha].includes('')) {
+    if ([mascota, raza, especie, nacimiento, edad, meses, sexo, peso, color, nombre, ident, numeroid, correo, direcciond, direcciono, ciudadd, ciudado, telefonod, fecha].includes('')) {
 			Swal.fire({
         icon: "error",
         title: "Todos los campos son Obligatorios",
@@ -177,7 +177,7 @@ const Formulario3 = () => {
 
     <div className=' bg-white shadow rounded-md md:w-3/4 mx-auto px-5 py-10 mt-20 '>
      <h1 className='font-bold text-4xl text-amber-700 text-center'>Formulario para Certificados Nacionales</h1>
-     <p className='text-center my-8 text-orange-500'>Por favor, complete el formulario con información precisa, tómese su tiempo y asegúrese de revisar todos los campos antes de enviar.
+     <p className='text-center text-lg my-8 text-orange-500'>Por favor, complete el formulario con información precisa. Tómese su tiempo y asegúrese de revisar todos los campos antes de enviarlo. De esto depende el viaje de su mascota.
 </p>
   <form onSubmit={handleSubmit}>
 
@@ -460,11 +460,14 @@ Edad:
           value={meses}
           className='mx-8 block mt-2 bg-gray-50 rounded-md'
           onChange={e => setMeses(e.target.value)}>
+<option value=""> </option>
 <option value="Meses">Meses</option>
 <option value="Años">Años</option>
 </select>
 </div>
 {submitClicked && edad === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
+{submitClicked && meses === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
+
 </div>
 
 <div className="mb-8">
@@ -475,9 +478,11 @@ Sexo:
           value={sexo}
           className='p-2 block mt-2 bg-gray-50 rounded-md'
           onChange={e => setSexo(e.target.value)}>
+<option value="" > </option>
 <option value="Macho">Macho</option>
 <option value="Hembra">Hembra</option>
 </select>
+{submitClicked && sexo === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
 </div>
 
 

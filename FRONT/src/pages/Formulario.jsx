@@ -11,8 +11,8 @@ const Formulario = () => {
   const [raza, setRaza] = useState('');
   const [nacimiento, setNacimiento] = useState('');
   const [edad, setEdad] = useState('');
-  const [meses, setMeses] = useState('Meses');
-  const [sexo, setSexo] = useState('Macho');
+  const [meses, setMeses] = useState('');
+  const [sexo, setSexo] = useState('');
   const [microchip, setMicrochip] = useState('');
   const [numero, setNumero] = useState('');
   const [peso, setPeso] = useState('');
@@ -71,7 +71,7 @@ const Formulario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitClicked(true);
-if ([mascota, raza, especie, nacimiento, edad, meses, microchip, peso, color, esterilizado, nombre, ident, numeroid, correo, direcciond, direcciono, ciudadd, estadod, paisd, postal, ciudado, telefonod, telefonoo, fecha, aeropuerto, ruta].includes('')) {
+if ([mascota, raza, especie, nacimiento, edad, meses, sexo, microchip, peso, color, esterilizado, nombre, ident, numeroid, correo, direcciond, direcciono, ciudadd, estadod, paisd, postal, ciudado, telefonod, telefonoo, fecha, aeropuerto, ruta].includes('')) {
 	Swal.fire({
     icon: "error",
     title: "Todos los campos son Obligatorios",
@@ -85,7 +85,13 @@ if (microchip === 1 && numero.length != 19) {
   });
   return;
 }
-
+if (telefonod === telefonoo) {
+  Swal.fire({
+    icon: "error",
+    title: "Los teléfonos no pueden ser iguales",
+  });
+  return;
+}
 
 
 let timerInterval;
@@ -182,8 +188,8 @@ Swal.fire({
       setRaza('');
       setNacimiento('');
       setEdad('');
-      setMeses('Meses');
-      setSexo('Macho');
+      setMeses('');
+      setSexo('');
       setMicrochip('');
       setNumero(null);
       setPeso('');
@@ -220,7 +226,7 @@ Swal.fire({
   return (
     <div className=' bg-white shadow rounded-md md:w-3/4 mx-auto px-5 py-10 mt-20 '>
       <h1 className='font-bold text-4xl text-teal-700 text-center'>Formulario para Certificados Internacionales</h1>
-      <p className='text-center my-8 text-orange-500'>Por favor, complete el formulario con información precisa, tómese su tiempo y asegúrese de revisar todos los campos antes de enviar. De esto depende el viaje de su mascota.
+      <p className='text-center text-lg my-8 text-orange-500'>Por favor, complete el formulario con información precisa. Tómese su tiempo y asegúrese de revisar todos los campos antes de enviarlo. De esto depende el viaje de su mascota.
 </p>
   <form onSubmit={handleSubmit}>
   <legend
@@ -502,11 +508,14 @@ Edad:
           value={meses}
           className='mx-8 block mt-2 bg-gray-50 rounded-md'
           onChange={e => setMeses(e.target.value)}>
+<option value=""> </option>
 <option value="Meses">Meses</option>
 <option value="Años">Años</option>
 </select>
 </div>
 {submitClicked && edad === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
+{submitClicked && meses === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
+
 </div>
 
 <div className="mb-8">
@@ -517,9 +526,11 @@ Sexo:
           value={sexo}
           className='p-2 block mt-2 bg-gray-50 rounded-md'
           onChange={e => setSexo(e.target.value)}>
+<option value="" > </option>
 <option value="Macho">Macho</option>
 <option value="Hembra">Hembra</option>
 </select>
+{submitClicked && sexo === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
 </div>
 
 
@@ -911,7 +922,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
   </label>
   <InputMask
     id='telefonoD'
-    mask="+99(999)-999-9999"
+    mask="+99(999)9999999"
     type='tel'
     className='block w-full p-2 mt-2 bg-gray-50 rounded-md'
     placeholder=' +1 (415) 555‑0132'
@@ -967,7 +978,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
   <InputMask
     id='telefonoO'
     type='tel'
-    mask="+99(999)-999-9999"
+    mask="+99(999)9999999"
     className='block w-full p-2 mt-2 bg-gray-50 rounded-md'
     placeholder='+57 (321) 555‑0132'
     name='telefonoO'

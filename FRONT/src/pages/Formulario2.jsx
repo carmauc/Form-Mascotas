@@ -9,7 +9,7 @@ const Formulario2 = () => {
   const [especie, setEspecie] = useState('');
   const [raza, setRaza] = useState('');
   const [nacimiento, setNacimiento] = useState('');
-  const [sexo, setSexo] = useState('Macho');
+  const [sexo, setSexo] = useState('');
   const [microchip, setMicrochip] = useState('');
   const [numero, setNumero] = useState(null);
   const [color, setColor] = useState('');
@@ -84,7 +84,7 @@ const handlePasaporte = (e) => {
     setSubmitClicked(true);
 
     
-    if ([mascota, raza, especie, nacimiento, microchip, color, esterilizado, nombre, correo, direcciond, ciudadd, estadod, postal, telefonod, cdc].includes('')) {
+    if ([mascota, raza, especie, nacimiento, microchip, color, sexo, esterilizado, nombre, correo, direcciond, ciudadd, estadod, postal, telefonod, cdc].includes('')) {
 			Swal.fire({
         icon: "error",
         title: "Todos los campos son Obligatorios",
@@ -203,7 +203,7 @@ if (microchip === 1 && numero.length != 19) {
       setRaza('');
       setNacimiento('');
 
-      setSexo('Macho');
+      setSexo('');
       setMicrochip('');
       setNumero(null);
       setColor('');
@@ -247,7 +247,7 @@ if (microchip === 1 && numero.length != 19) {
   return (
     <div className=' bg-white shadow rounded-md md:w-3/4 mx-auto px-5 py-10 mt-20 '>
            <h1 className='font-bold text-4xl text-red-700 text-center'>Certificado de Rabia y Permiso del CDC</h1>
-      <p className='text-center my-8 text-orange-500'>Por favor, complete el formulario con información precisa, tómese su tiempo y asegúrese de revisar todos los campos antes de enviar.
+           <p className='text-center text-lg my-8 text-orange-500'>Por favor, complete el formulario con información precisa. Tómese su tiempo y asegúrese de revisar todos los campos antes de enviarlo. De esto depende el viaje de su mascota.
 </p>
   <form onSubmit={handleSubmit}>
 
@@ -524,9 +524,11 @@ Sexo:
           value={sexo}
           className='p-2 block mt-2 bg-gray-50 rounded-md'
           onChange={e => setSexo(e.target.value)}>
+<option value="" > </option>
 <option value="Macho">Macho</option>
 <option value="Hembra">Hembra</option>
 </select>
+{submitClicked && sexo === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
 </div>
 
 
@@ -758,7 +760,7 @@ Sexo:
     value={postal}
     onChange={(e) => setPostal(e.target.value)}
   />
-            {submitClicked && postal === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
+  {submitClicked && postal === '' && <span style={{ color: 'red' }}>¡Campo Obligatorio!</span>}
 </div>
 
 <div className='mb-8'>
@@ -1015,7 +1017,7 @@ className=' mt-5 mb-8 w-full bg-sky-700 p-2 uppercase font-bold text-white text-
   </label>
   <InputMask
     id='telefonoD'
-    mask="+99(999)-999-9999"
+    mask="+99(999)9999999"
     type='tel'
     className='block w-full p-2 mt-2 bg-gray-50 rounded-md'
     placeholder=' +1 (415) 555‑0132'
