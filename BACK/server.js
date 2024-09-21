@@ -478,7 +478,7 @@ app.post('/enviar-correo', upload.fields([
      <p><strong>Dirección / Address</strong><span style="text-transform: uppercase;"> ${direcciono} <br> ${ciudado}</span></p>
      <p><strong>Tel.</strong> ${telefonoo}</p>
      <br><br>
-     <p style=" font-weight: bold;">I.5. Destinatario /  Consignee ESPAÑA</p>
+     <p style=" font-weight: bold;">I.5. Destinatario /  Consignee <span style="text-transform: uppercase;">${paisd}</span></p>
      <p><strong>Nombre / Name</strong><span style="text-transform: uppercase;"> ${nombre}</span></p>
      <p><strong>Dirección / Address</strong><span style="text-transform: uppercase;"> ${direcciond} <br> ${ciudadd}</span></p>
      <p><strong>Código postal / Postal code:</strong> ${postal}</p>

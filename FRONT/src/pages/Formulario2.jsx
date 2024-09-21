@@ -648,12 +648,12 @@ Sexo:
 
       <div className='mb-8'>
   <label className='text-gray-800'>
-  Carnet de Vacunas (Adjuntar Archivo o Foto legible del carnet de Vacunas de la mascota):
-  </label>
+  Carnet de Vacunas (Adjuntar carnet de vacunas legible en formato PDF):</label>
   <input 
   type="file"     
   className='block w-full p-2 mt-2 '
-  id="archivo1" 
+  id="archivo1"
+  accept=".pdf"
   onChange={handleArchivoChange1} />
 </div>
 
@@ -1056,24 +1056,24 @@ Puerto de Entrada:
           className='block p-2 mt-2 bg-gray-50 rounded-md'
           onChange={e => setPuerto(e.target.value)}>
 				<option selected="selected" value="--PLEASE_SELECT--">**  Seleccione por favor **</option>
-				<option value="Anchorage">Anchorage</option>
-				<option value="Atlanta">Atlanta</option>
-				<option value="Boston">Boston</option>
-				<option value="Chicago(ORD)">Chicago(ORD)</option>
-				<option value="Dallas">Dallas</option>
-				<option value="Detroit">Detroit</option>
-				<option value="Honolulu">Honolulu</option>
-				<option value="Houston">Houston</option>
-				<option value="Los Angeles">Los Angeles</option>
-				<option value="Miami">Miami</option>
-				<option value="Minneapolis">Minneapolis</option>
+				{/* <option value="Anchorage">Anchorage</option> */}
+				<option value="Atlanta(ATL)">Atlanta(ATL)</option>
+				{/* <option value="Boston">Boston</option> */}
+				{/* <option value="Chicago(ORD)">Chicago(ORD)</option> */}
+				{/* <option value="Dallas">Dallas</option> */}
+				{/* <option value="Detroit">Detroit</option> */}
+				{/* <option value="Honolulu">Honolulu</option> */}
+				{/* <option value="Houston">Houston</option> */}
+				<option value="Los Angeles(LAX)">Los Angeles(LAX)</option>
+				<option value="Miami(MIA)">Miami(MIA)</option>
+				{/* <option value="Minneapolis">Minneapolis</option> */}
         <option value="New York(JFK)">New York(JFK)</option>
-				<option value="Newark">Newark</option>
-				<option value="Philadelphia">Philadelphia</option>
-				<option value="San Juan">San Juan</option>
+				{/* <option value="Newark">Newark</option> */}
+				<option value="Philadelphia(PHL)">Philadelphia(PHL)</option>
+				{/* <option value="San Juan">San Juan</option>
 				<option value="Seattle">Seattle</option>
-				<option value="U.S Military Base">U.S Military Base</option>
-				<option value="Washington DC">Washington DC</option>
+				<option value="U.S Military Base">U.S Military Base</option> */}
+				<option value="Washington DC(IAD)">Washington DC(IAD)</option>
 			</select>
       </div>
 
@@ -1089,13 +1089,24 @@ className=' mt-5 mb-8 w-full bg-sky-700 p-2 uppercase font-bold text-white text-
   <input 
   type="file"     
   className='block w-full p-2 mt-2 '
-  id="pasaporte1" 
+  id="pasaporte1"
+  accept=".pdf" 
   onChange={handlePasaporte} />
 </div>
 
 <div className='mb-8'>
   <label className='text-gray-800'>
-  Fotografia Frontal y Lateral de las encias de la mascota en un solo archivo PDF:
+ Fotografia (Max 1MB)
+  </label>
+    {/* Imagen de ejemplo */}
+    <img 
+    src="https://res.cloudinary.com/dmurguugh/image/upload/v1726943162/Agencia%20de%20Viajes/2fExampleDogImage_ofky4d.png" 
+    alt="Ejemplo de foto del perro"
+    className="mt-2 w-48 h-32 object-contain" 
+  />
+    <label className='text-gray-800 text-sm'>
+  Adjunte una foto (1 MB máximo) de su perro que se haya tomado no más de 90 días antes de viajar (si el perro es menor de 1 año, la foto debe tomarse no más de 15 días antes de viajar). 
+  La foto debe ser de la cara y el cuerpo (ver ejemplo).
   </label>
   <input 
   type="file"     

@@ -38,7 +38,7 @@ const Formulario = () => {
   const [archivo2, setArchivo2] = useState(null); // state para adjuntar archivos
   const [pasaporte1, setPasaporte1] = useState(null); // state para adjuntar archivos
 
-  const [desparasitante, setDesparasitante] = useState(''); // state para adjuntar archivos
+  // const [desparasitante, setDesparasitante] = useState(''); // state para adjuntar archivos
 
 
   const [submitClicked, setSubmitClicked] = useState(false); // state para mostrar los errores al hacer click
@@ -55,9 +55,9 @@ const Formulario = () => {
     setArchivo2(e.target.files[0]);
     // setArchivo2(Array.from(e.target.files));
   };
-  const handlePasaporte = (e) => {
-    setPasaporte1(e.target.files[0]);
-  };
+  // const handlePasaporte = (e) => {
+  //   setPasaporte1(e.target.files[0]);
+  // };
 
   // formatear string que devuelve el input de tipo Date
   const formatearFecha = fechaInput => {
@@ -672,14 +672,20 @@ Sexo:
   <input 
   type="file"     
   className='block w-full p-2 mt-2 '
-  id="archivo1" 
+  id="archivo1"
+  accept=".pdf"
   onChange={handleArchivoChange1} />
 </div>
 
 <div className='mb-8'>
   <label className='text-gray-800'>
-  Fotografia Mascota (Adjuntar Fotografia de las encias de la mascota):
+  Adjuntar Fotografia de las encias de la mascota (ver ejemplo):
   </label>
+  <img 
+    src="https://res.cloudinary.com/dmurguugh/image/upload/v1726943537/Agencia%20de%20Viajes/dog-inspection-small_sx8hp3.jpg" 
+    alt="Ejemplo de foto del perro"
+    className="mt-2 w-48 h-32 object-contain" 
+  />
   <input 
   type="file"     
   className='block w-full p-2 mt-2 '
@@ -688,7 +694,7 @@ Sexo:
 </div>
 
 
-<div className="mb-8">
+{/* <div className="mb-8">
           <label htmlFor="mascota" className="text-gray-800">
           Agregar Información del Desparasitante<p className='mt-2 text-sm text-orange-500'>La fecha de aplicación del desparasitante Externo e Interno varia dependiendo el país pero se recomienda sea 5 días antes del viaje</p>
           </label>
@@ -737,7 +743,7 @@ Adjuntar un solo archivo con la información del Desparasitante Externo e Intern
   onChange={handlePasaporte} />
 </div>
 </div>
-    )}
+    )} */}
 
       <legend
 						className=' mt-5 mb-8 w-full bg-teal-700 p-2 uppercase font-bold text-white text-md text-center rounded-md'
