@@ -547,16 +547,19 @@ app.post('/enviar-correo', upload.fields([
 
 
         País Destino: ${paisd}
-        
         ========================
 
         Mascota: ${mascota}
+        Especie: ${especie}
         Fecha de Nacimiento: ${nacimiento}
-        Esterilizado ${esterilizado}
         Microchip:${numero}
         Email: ${correo}
         Nombre: ${nombre}
-        Identificacion: ${ident}
+        Raza: ${raza}
+        Sexo:${sexo}
+        Color:${color}
+        Esterilizado ${esterilizado}
+        Tipo de Identificacion: ${ident}
         Numero de Id: ${numeroid}
         Direccion Origen: ${direcciono}
         Barrio: ${barrio}
