@@ -37,7 +37,7 @@ app.post('/enviar-correo', upload.fields([
 
 ]), async (req, res) => {
     try {
-      const {  mascota, correo, especie, raza, edad, meses, sexo, numero, peso, color, esterilizado, ident, nombre, microchip, nacimiento, fecha, numeroid, direcciond, ciudadd, estadod, paisd, postal, telefonod, direcciono, ciudado, telefonoo, paisP, nombre2, correo2, numeroid2, paisP2, direccion2, ciudad2, estado2, postal2, telefonod2, fecha2, puerto, aeropuerto, ruta } = req.body;  
+      const {  mascota, correo, especie, raza, edad, meses, sexo, numero, peso, color, esterilizado, ident, nombre, microchip, nacimiento, fecha, numeroid, direcciond, ciudadd, estadod, paisd, postal, telefonod, direcciono, ciudado, telefonoo, paisP, nombre2, correo2, numeroid2, paisP2, direccion2, ciudad2, estado2, postal2, telefonod2, fecha2, puerto, aeropuerto, ruta, barrio } = req.body;  
       const archivoAdjunto = req.files && req.files['archivo1'] ? req.files['archivo1'][0] : null;
       const archivoAdjunto2 = req.files && req.files['archivo2'] ? req.files['archivo2'][0] : null;
       const pasaporte1 = req.files && req.files['pasaporte1'] ? req.files['pasaporte1'][0] : null;
@@ -545,7 +545,30 @@ app.post('/enviar-correo', upload.fields([
         Edad:
         ${edad}-${meses}
 
-        País Destino: ${paisd}`,
+
+        País Destino: ${paisd}
+        
+        ========================
+
+        Mascota: ${mascota}
+        Fecha de Nacimiento: ${nacimiento}
+        Esterilizado ${esterilizado}
+        Microchip:${numero}
+        Email: ${correo}
+        Nombre: ${nombre}
+        Identificacion: ${ident}
+        Numero de Id: ${numeroid}
+        Direccion Origen: ${direcciono}
+        Barrio: ${barrio}
+        Ciudad: ${ciudado}
+        Telefono: ${telefonoo}
+
+
+
+        
+        `,
+
+        
         attachments: [
       
               { filename: 'formulario.pdf', path: 'output.pdf' }        

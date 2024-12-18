@@ -35,6 +35,15 @@ const Layout = () => {
 						href='/nacional'>
 						Certificado Nacional
 					</a>
+					<a
+						className={`${
+							location.pathname === '/nacional'
+								? 'text-teal-300'
+								: 'text-white'
+						} text-2xl block hover:text-teal-300 mt-2`}
+						href='/serologia'>
+						Serologia Rabia
+					</a>
 					{/* <a className='flex justify-center pt-8 brightness-150'>
 					<img  className=' w-14' src="Logo.png" alt="Logo de la Navegación"/>
 					</a> */}

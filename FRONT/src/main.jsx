@@ -7,6 +7,7 @@ import Formulario from './pages/Formulario'
 import Layout from './pages/Layout'
 import Formulario2 from './pages/Formulario2'
 import Formulario3 from './pages/Formulario3'
+import Serologia from './pages/Serologia'
 
 
 const router = createBrowserRouter([
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
     {
       path: '/nacional',
       element: <Formulario3/>
-  }
+  },
+  {
+    path: '/serologia',
+    element: <Serologia/>
+}
     ],
   },
  
