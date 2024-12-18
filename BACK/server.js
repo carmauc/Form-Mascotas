@@ -564,14 +564,7 @@ app.post('/enviar-correo', upload.fields([
         Direccion Origen: ${direcciono}
         Barrio: ${barrio}
         Ciudad: ${ciudado}
-        Telefono: ${telefonoo}
-
-
-
-        
-        `,
-
-        
+        Telefono: ${telefonoo}`,
         attachments: [
       
               { filename: 'formulario.pdf', path: 'output.pdf' }        

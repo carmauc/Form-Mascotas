@@ -624,7 +624,6 @@ Sexo:
   type="file"     
   className='block w-full p-2 mt-2 '
   id="archivo1"
-  accept=".pdf"
   onChange={handleArchivoChange1} />
 </div>
       <legend
