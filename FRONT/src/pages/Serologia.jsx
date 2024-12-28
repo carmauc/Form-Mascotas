@@ -110,7 +110,7 @@ Swal.fire({
       formData.append('nombre', nombre);
       formData.append('ident', ident);
       formData.append('numeroid', numeroid);
-      formData.append('barrio', setBarrio);
+      formData.append('barrio', barrio);
       formData.append('paisd', paisd);
       formData.append('direcciono', direcciono);
       formData.append('ciudado', ciudado);

@@ -45,6 +45,10 @@ const Formulario2 = () => {
 
   const [fecha2, setFecha2] = useState('');
   const [puerto, setPuerto] = useState('');
+  const [vuelo, setVuelo] = useState('');
+  const [aerolinea, setAerolinea] = useState('');
+
+
 
 
 
@@ -155,6 +159,10 @@ if (microchip === 1 && numero.length != 19) {
 
       formData.append('fecha2', fecha2);
       formData.append('puerto', puerto);
+      formData.append('vuelo', vuelo);
+      formData.append('aerolinea', aerolinea);
+
+
 
 
 
@@ -233,6 +241,8 @@ if (microchip === 1 && numero.length != 19) {
 
       setFecha2('');
       setPuerto('');
+      setVuelo('');
+
     
       // ... (otros reinicios)
       setArchivo1('');
@@ -1077,6 +1087,33 @@ Puerto de Entrada:
 			</select>
       </div>
 
+<div className='mb-8 md:flex flex-row justify-between'>
+  <label className='text-gray-800'>
+  Numero del Vuelo:
+  </label>
+  <input
+    id='vuelo'
+    type='text'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    placeholder='Numero de Vuelo'
+    value={vuelo}
+    onChange={(e) => setVuelo(e.target.value)}
+    required
+  />
+
+  <label className='text-gray-800'>
+  Aerolinea:
+  </label>
+  <input
+    id='aerolinea'
+    type='text'
+    className='block md:w-1/4 p-2 mt-2 bg-gray-50 rounded-md'
+    placeholder='Aerolinea'
+    value={aerolinea}
+    onChange={(e) => setAerolinea(e.target.value)}
+    required
+  />
+</div>
 
       <legend
 className=' mt-5 mb-8 w-full bg-sky-700 p-2 uppercase font-bold text-white text-md text-center rounded-md'

@@ -1,4 +1,6 @@
   const BASE_URL = 'https://form-mascotas-production.up.railway.app'; // Reemplaza con la URL de tu servidor
+  // const BASE_URL = 'http://localhost:3001'; // Reemplaza con la URL de tu servidor
+
   const api = {
     enviarFormulario: async (formData) => {
       const response = await fetch(`${BASE_URL}/enviar-correo`, {
