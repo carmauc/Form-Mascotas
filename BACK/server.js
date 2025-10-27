@@ -1,51 +1,98 @@
 require('dotenv').config();
 
-const nodemailer = require('nodemailer');
 const cors = require('cors');
-
-const multer = require('multer');  // Import multer
+const multer = require('multer');
 const puppeteer = require('puppeteer');
-const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const { Resend } = require('resend');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Configuración básica
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-  // Configurar multer para manejar la carga de archivos
-  const storage = multer.memoryStorage();
-  const upload = multer({ storage: storage });
 
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-    
-  // Manejo de solicitudes POST desde tu aplicación de React
-app.post('/enviar-correo', upload.fields([
-  { name: 'archivo1', maxCount: 1 },
-  { name: 'archivo2', maxCount: 1 },
-  { name: 'pasaporte1', maxCount: 1 },
+// Configurar multer para manejar archivos en memoria
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-]), async (req, res) => {
+// Inicializa Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// ======================
+// 📧 RUTA PARA ENVIAR CORREO
+// ======================
+app.post(
+  '/enviar-correo',
+  upload.fields([
+    { name: 'archivo1', maxCount: 1 },
+    { name: 'archivo2', maxCount: 1 },
+    { name: 'pasaporte1', maxCount: 1 },
+  ]),
+  async (req, res) => {
     try {
-      const {  mascota, correo, especie, raza, edad, meses, sexo, numero, peso, color, esterilizado, ident, nombre, microchip, nacimiento, fecha, numeroid, direcciond, ciudadd, estadod, paisd, postal, telefonod, direcciono, barrio, ciudado, telefonoo, paisP, nombre2, correo2, numeroid2, paisP2, direccion2, ciudad2, estado2, postal2, telefonod2, fecha2, puerto, aeropuerto, ruta, vuelo, aerolinea} = req.body;  
-      const archivoAdjunto = req.files && req.files['archivo1'] ? req.files['archivo1'][0] : null;
-      const archivoAdjunto2 = req.files && req.files['archivo2'] ? req.files['archivo2'][0] : null;
-      const pasaporte1 = req.files && req.files['pasaporte1'] ? req.files['pasaporte1'][0] : null;
+      // Datos del formulario
+      const {
+        mascota,
+        correo,
+        especie,
+        raza,
+        edad,
+        meses,
+        sexo,
+        numero,
+        peso,
+        color,
+        esterilizado,
+        ident,
+        nombre,
+        microchip,
+        nacimiento,
+        fecha,
+        numeroid,
+        direcciond,
+        ciudadd,
+        estadod,
+        paisd,
+        postal,
+        telefonod,
+        direcciono,
+        barrio,
+        ciudado,
+        telefonoo,
+        paisP,
+        nombre2,
+        correo2,
+        numeroid2,
+        paisP2,
+        direccion2,
+        ciudad2,
+        estado2,
+        postal2,
+        telefonod2,
+        fecha2,
+        puerto,
+        aeropuerto,
+        ruta,
+        vuelo,
+        aerolinea,
+      } = req.body;
 
-    // Generar PDF con Puppeteer
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-    const page = await browser.newPage();
-    const htmlContent = 
+      const archivoAdjunto = req.files?.['archivo1']?.[0];
+      const archivoAdjunto2 = req.files?.['archivo2']?.[0];
+      const pasaporte1 = req.files?.['pasaporte1']?.[0];
+
+      // ======================
+      // 🧾 GENERAR PDF CON PUPPETEER
+      // ======================
+      const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+      const page = await browser.newPage();
+
+      const htmlContent = 
     `<html>
     <head>
       <style>
@@ -502,120 +549,112 @@ app.post('/enviar-correo', upload.fields([
       </body>
             </html>
   `;
-    await page.setContent(htmlContent, { waitUntil: 'networkidle2' });
-    await page.pdf({ path: 'output.pdf', format: 'A4' });
-    await browser.close();
 
-      const mailOptions = {
-        from: 'carmauc339@outlook.com',
-        to: 'carmauc339@outlook.com',
-        subject: `Certificado de ${mascota} para ${paisd ? paisd : ciudadd}`,
-        text: `
-        Información PreCiS ICA
-        Nro de Identificación Exportador: 
-        ${numeroid}
+      await page.setContent(htmlContent, { waitUntil: 'networkidle2' });
+      await page.pdf({ path: 'output.pdf', format: 'A4' });
+      await browser.close();
 
-        Nombre de Importador:
-        ${nombre}
+      // ======================
+      // 📎 ADJUNTOS
+      // ======================
+      const attachments = [
+        {
+          filename: 'formulario.pdf',
+          content: fs.readFileSync('output.pdf').toString('base64'),
+          encoding: 'base64',
+        },
+      ];
 
-        Dirección de Destino: 
-        ${direcciond}
+      if (archivoAdjunto)
+        attachments.push({
+          filename: archivoAdjunto.originalname,
+          content: archivoAdjunto.buffer.toString('base64'),
+          encoding: 'base64',
+        });
 
-        Uso del Producto:
-        Animales de Compañía
+      if (archivoAdjunto2)
+        attachments.push({
+          filename: archivoAdjunto2.originalname,
+          content: archivoAdjunto2.buffer.toString('base64'),
+          encoding: 'base64',
+        });
 
-        Oficina de Inspección:
-        ${aeropuerto}
+      if (pasaporte1)
+        attachments.push({
+          filename: pasaporte1.originalname,
+          content: pasaporte1.buffer.toString('base64'),
+          encoding: 'base64',
+        });
 
-        Medio de Transporte:
-        Aéreo
+      // ======================
+      // ✉️ ENVIAR CON RESEND
+      // ======================
+      const response = await resend.emails.send({
+        from: 'noreply@maurovet.com', // ⚠️ Debe ser verificado en Resend
+        to: ['carmauc339@outlook.com', correo], // copia al usuario
+        subject: `Certificado de ${mascota} para ${paisd || ciudadd}`,
+        html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<h2>Información PreCiS ICA</h2>
 
-        Ruta de Viaje:
-        ${ruta}
+<p><strong>Nro de Identificación Exportador:</strong> ${numeroid}</p>
+<p><strong>Nombre de Importador:</strong> ${nombre}</p>
+<p><strong>Dirección de Destino:</strong> ${direcciond}</p>
+<p><strong>Uso del Producto:</strong> Animales de Compañía</p>
+<p><strong>Oficina de Inspección:</strong> ${aeropuerto}</p>
+<p><strong>Medio de Transporte:</strong> Aéreo</p>
+<p><strong>Ruta de Viaje:</strong> ${ruta}</p>
+<p><strong>Fecha de Salida:</strong> ${fecha}</p>
 
-        Fecha de Salida:
-        ${fecha}
+<hr>
 
-        ========================
+<h3>Datos del Animal</h3>
+<p><strong>Especie:</strong> ${especie}</p>
+<p><strong>Pelaje o Microchip:</strong> ${numero ? numero : color}</p>
+<p><strong>Raza:</strong> ${raza}</p>
+<p><strong>Sexo:</strong> ${sexo}</p>
+<p><strong>Edad:</strong> ${edad}-${meses}</p>
+<p><strong>País Destino:</strong> ${paisd}</p>
+
+<hr>
+
+<h3>Información del Propietario</h3>
+<p><strong>Nombre de la Mascota:</strong> ${mascota}</p>
+<p><strong>Especie:</strong> ${especie}</p>
+<p><strong>Fecha de Nacimiento:</strong> ${nacimiento}</p>
+<p><strong>Microchip:</strong> ${numero}</p>
+<p><strong>Email:</strong> ${correo}</p>
+<p><strong>Nombre del Propietario:</strong> ${nombre}</p>
+<p><strong>Raza:</strong> ${raza}</p>
+<p><strong>Sexo:</strong> ${sexo}</p>
+<p><strong>Color:</strong> ${color}</p>
+<p><strong>Esterilizado:</strong> ${esterilizado}</p>
+<p><strong>Tipo de Identificación:</strong> ${ident}</p>
+<p><strong>Número de Identificación:</strong> ${numeroid}</p>
+<p><strong>Dirección de Origen:</strong> ${direcciono}</p>
+<p><strong>Barrio:</strong> ${barrio}</p>
+<p><strong>Ciudad:</strong> ${ciudado}</p>
+<p><strong>Teléfono:</strong> ${telefonoo}</p>
+</div>
+                  <p>Adjunto encontrarás el certificado en PDF y los documentos cargados.</p>
+`
         
-        Especie:
-        ${especie}
+        ,
+        attachments,
+      });
 
-        Pelaje o Microchip:
-        ${numero ? numero : color}
+      console.log('Correo enviado ✅', response);
+      res.status(200).json({ message: 'Correo enviado con éxito 🎉' });
+    } catch (error) {
+      console.error('Error al enviar el correo:', error);
+      res.status(500).json({ error: 'Error al enviar el correo' });
+    }
+  }
+);
 
-        Raza:
-        ${raza}
-
-        Sexo:
-        ${sexo}
-
-        Edad:
-        ${edad}-${meses}
-
-
-        País Destino: ${paisd}
-        ========================
-
-        Mascota: ${mascota}
-        Especie: ${especie}
-        Fecha de Nacimiento: ${nacimiento}
-        Microchip:${numero}
-        Email: ${correo}
-        Nombre: ${nombre}
-        Raza: ${raza}
-        Sexo:${sexo}
-        Color:${color}
-        Esterilizado ${esterilizado}
-        Tipo de Identificacion: ${ident}
-        Numero de Id: ${numeroid}
-        Direccion Origen: ${direcciono}
-        Barrio: ${barrio}
-        Ciudad: ${ciudado}
-        Telefono: ${telefonoo}`,
-        attachments: [
-      
-              { filename: 'formulario.pdf', path: 'output.pdf' }        
-          ],
-        };
-    
-        if (archivoAdjunto) {
-          mailOptions.attachments.push({
-              filename: archivoAdjunto.originalname,
-              content: archivoAdjunto.buffer,
-          });
-      }
-
-      if (archivoAdjunto2) {
-          mailOptions.attachments.push({
-              filename: archivoAdjunto2.originalname,
-              content: archivoAdjunto2.buffer,
-          });
-      }
-
-      if (pasaporte1) {
-          mailOptions.attachments.push({
-              filename: pasaporte1.originalname,
-              content: pasaporte1.buffer,
-          });
-      }
-
-
-await transporter.sendMail(mailOptions);
-
-res.status(200).json({ message: 'Correo enviado con éxito' });
-}
-// });} 
-catch (error) {
-console.error(error);
-res.status(500).json({ error: 'Error al enviar el correo' });
-}
-});
-
-// Inicia el servidor
+// ======================
+// 🚀 INICIAR SERVIDOR
+// ======================
 app.listen(PORT, () => {
-console.log(`Servidor escuchando en el puerto ${PORT}`);
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
-
-
-
