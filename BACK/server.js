@@ -80,6 +80,8 @@ app.post(
         ruta,
         vuelo,
         aerolinea,
+        pifd,
+
       } = req.body;
 
       const archivoAdjunto = req.files?.['archivo1']?.[0];
@@ -589,12 +591,52 @@ app.post(
       // ======================
       // ✉️ ENVIAR CON RESEND
       // ======================
-      const response = await resend.emails.send({
-        from: 'noreply@maurovet.com', // ⚠️ Debe ser verificado en Resend
-        to: ['carmauc339@outlook.com', correo], // copia al usuario
-        subject: `Certificado de ${mascota} para ${paisd || ciudadd}`,
-        html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+
+
+
+
+const EmailContent = (pifd &&  
+  `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+      <h2>Información CEXGAN para ${paisd}</h2>
+      <p><strong>Destinatario:</strong></p>
+      <ul>
+        <li>Destinatario: ${nombre}</li>
+        <li>Dirección: ${direcciond}</li>
+        <li>Codigo y localidad del Destinatario: ${postal} - ${ciudadd}</li>
+        <li>Telefono: ${telefonod}</li>
+      </ul>
+          <p><strong>Medio de Transporte:</strong></p>
+      <ul>
+        <li>Vuelo: ${vuelo}</li>
+      </ul>
+               <p><strong>Lugares referentes a la Mercancia:</strong></p>
+      <ul>
+        <li>PIF de Entrada: ${pifd}</li>
+        <li>Fecha de Salida: ${fecha}</li>
+
+      </ul>
+      <p><strong>Datos del Propietario:</strong></p>
+      <ul>
+        <li>Nombre y Apellidos: ${nombre}</li>
+        <li>Direccion: ${direcciono}</li>
+        <li>Telefono: ${telefonoo}</li>
+        <li>Codigo Postal: ${postal2}</li>
+        <li>DNI propietario: ${ident} --  ${numeroid}</li>
+        <li>Correo Electronico: ${correo}</li>
+      </ul>
+      <p><strong>Datos de la Mascota:</strong></p>
+      <ul>
+        <li>Mascota: ${mascota}</li>
+        <li>Especie: ${especie}</li>
+        <li>Raza: ${raza}</li>
+        <li>Fecha de Nacimiento: ${nacimiento}</li>
+        <li>Sexo: ${sexo}</li>
+        <li>Microchip: ${numero}</li>
+      </ul>
+    </div>
+  ` ) ||
+ `    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
 <h2>Información PreCiS ICA</h2>
 
 <p><strong>Nro de Identificación Exportador:</strong> ${numeroid}</p>
@@ -638,8 +680,13 @@ app.post(
 </div>
                   <p>Adjunto encontrarás el certificado en PDF y los documentos cargados.</p>
 `
-        
-        ,
+;
+
+      const response = await resend.emails.send({
+        from: 'noreply@maurovet.com', // ⚠️ Debe ser verificado en Resend
+        to: ['carmauc339@outlook.com', correo], // copia al usuario
+        subject: `Certificado de ${mascota} para ${paisd || ciudadd}`,
+        html: EmailContent, 
         attachments,
       });
 

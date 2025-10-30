@@ -8,6 +8,7 @@ import Layout from './pages/Layout'
 import Formulario2 from './pages/Formulario2'
 import Formulario3 from './pages/Formulario3'
 import Serologia from './pages/Serologia'
+import Cexgan from './pages/Cexgan'
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,12 @@ const router = createBrowserRouter([
   {
     path: '/serologia',
     element: <Serologia/>
+},
+  {
+    path: '/CEXGAN',
+    element: <Cexgan/>
 }
+
     ],
   },
  
